@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-import RotaInicial from "./Logo/RotaInicial"
+import RotaInicial from "./RotaInicial"
 import RotaCadastro from './RotaCadastro'
 import RotaHabitos from './RotaHabitos'
 import RotaHoje from './RotaHoje'

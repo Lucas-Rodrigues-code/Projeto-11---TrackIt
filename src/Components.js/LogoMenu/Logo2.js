@@ -1,5 +1,4 @@
 import styled from "styled-components"
-
 import user from "/home/lucas/projetos/projeto11-trackit/src/Components.js/LogoMenu/logo2.jpg"
 
 export default function Logo2() {
