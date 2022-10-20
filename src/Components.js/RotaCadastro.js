@@ -1,27 +1,76 @@
 import Logo from "./Logo/Logo"
 import styled from "styled-components"
+import { useState } from "react/cjs/react.development"
+import axios from "axios"
+import { ThreeDots } from 'react-loader-spinner'
+import { useNavigate, Link } from 'react-router-dom';
+
 export default function RotaCadastro() {
+    const [email, setEmail] = useState("")
+    const [senha, setSenha] = useState("")
+    const [nome, setNome] = useState("")
+    const [foto, setFoto] = useState("")
+    const [removeLoading, setRemoveLoading] = useState(false)
+
+    const navigate = useNavigate()
+
+    function fazerCadastro(e) {
+        e.preventDefault()
+        const body = {
+            email: email,
+            name: nome,
+            image: foto,
+            password: senha
+
+        }
+        const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", body)
+            .then(() => {
+                setRemoveLoading(true)
+                navigate("/")
+            })
+            .catch(() => {
+                alert("Opss! Algo deu errado, verifique seus dados")
+                window.location.reload()
+            })
+    }
     return (
         <>
             <Logo />
             <Formulario>
-                <input placeholder="email" />
-                <input placeholder="senha" />
-                <input placeholder="nome" />
-                <input placeholder="foto" />
-                <button>Cadastrar</button>
-                <h1>Já tem uma conta? Faça login!</h1>
+                <form>
+                    <input type="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)} disabled={removeLoading} />
+                    <input type="password" placeholder="senha" value={senha} onChange={e => setSenha(e.target.value)} disabled={removeLoading} />
+                    <input placeholder="nome" value={nome} onChange={e => setNome(e.target.value)} disabled={removeLoading} />
+                    <input placeholder="foto" value={foto} onChange={e => setFoto(e.target.value)} disabled={removeLoading} />
+                    <button onClick={fazerCadastro}>
+                        {removeLoading === true ? <ThreeDots
+                            height="80"
+                            width="80"
+                            radius="9"
+                            color="#FFFFFF"
+                            ariaLabel="three-dots-loading"
+                            wrapperStyle={{}}
+                            wrapperClassName=""
+                            visible={true}
+                        /> : "Cadastrar"}
+                    </button>
+                    <Link to={"/"}>
+                        <h1>Já tem uma conta? Faça login!</h1>
+                    </Link>
+                </form>
             </Formulario>
         </>
     )
 }
 
 const Formulario = styled.div`
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    margin-top:32px;
-    
+
+    form{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        margin-top:32px;
+    }
 
     input{
         width: 303px;
@@ -58,6 +107,9 @@ const Formulario = styled.div`
         font-size: 20.976px;
         line-height: 26px;
         text-align: center;
+        display:flex;
+        justify-content:center;
+        align-items:center;
 
         color: #FFFFFF;
         border: none;
