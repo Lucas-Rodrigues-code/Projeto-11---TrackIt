@@ -3,20 +3,24 @@ import RotaInicial from "./RotaInicial"
 import RotaCadastro from './RotaCadastro'
 import RotaHabitos from './RotaHabitos'
 import RotaHoje from './RotaHoje'
+import { ContextProvider } from "../contexts/Context"
+
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 export default function App() {
     return (
         <>
-            <GlobalStyle />
-            <BrowserRouter>
-                <Routes>
-                <Route path="/" element={<RotaInicial/>} />
-                <Route path="/cadastro" element={<RotaCadastro/>} />
-                <Route path="/habitos" element={<RotaHabitos/>} />
-                <Route path="/hoje" element={<RotaHoje/>} />  
-                </Routes>
-            </BrowserRouter>
+            <ContextProvider>
+                <GlobalStyle />
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<RotaInicial />} />
+                        <Route path="/cadastro" element={<RotaCadastro />} />
+                        <Route path="/habitos" element={<RotaHabitos />} />
+                        <Route path="/hoje" element={<RotaHoje />} />
+                    </Routes>
+                </BrowserRouter>
+            </ContextProvider>
         </>
     )
 }

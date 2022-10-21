@@ -1,15 +1,20 @@
 import { useState } from "react/cjs/react.development"
 import styled from "styled-components"
 import { useNavigate, Link } from 'react-router-dom';
-import Logo from "./Logo/Logo"
+import Logo from "./LogoMenu/Logo"
 import axios from "axios"
 import { ThreeDots } from 'react-loader-spinner'
 
+import { useContext } from "react";
+import { Context } from "../contexts/Context";
 
 export default function RotaInicial() {
+    const {setLogin} = useContext(Context)
+    
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
     const [removeLoading, setRemoveLoading] = useState(false)
+    
 
     const navigate = useNavigate()
 
@@ -22,24 +27,26 @@ export default function RotaInicial() {
 
         }
         const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body)
-        requisicao.then(() => {
+        requisicao.then((data) => {
+            setLogin(data.data)
             setRemoveLoading(true)
             navigate("/hoje")
         })
+
         requisicao.catch(() => {
             alert("Opss! Email ou senha errados")
             window.location.reload()
         })
     }
-    
+
 
     return (
         <>
             <Logo />
             <Formulario>
                 <form>
-                    <input type="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)} disabled={removeLoading}  />
-                    <input type="password" placeholder="senha" value={senha} onChange={e => setSenha(e.target.value) } disabled={removeLoading} />
+                    <input type="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)} disabled={removeLoading} />
+                    <input type="password" placeholder="senha" value={senha} onChange={e => setSenha(e.target.value)} disabled={removeLoading} />
                     <button onClick={fazerLogin} disabled={removeLoading}>
                         {removeLoading === true ? <ThreeDots
                             height="80"
@@ -49,7 +56,7 @@ export default function RotaInicial() {
                             ariaLabel="three-dots-loading"
                             wrapperStyle={{}}
                             wrapperClassName=""
-                            visible={true}                    
+                            visible={true}
                         /> : "Entrar"}
                     </button>
                     <Link to={"/cadastro"}>

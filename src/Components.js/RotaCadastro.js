@@ -1,4 +1,4 @@
-import Logo from "./Logo/Logo"
+import Logo from "./LogoMenu/Logo"
 import styled from "styled-components"
 import { useState } from "react/cjs/react.development"
 import axios from "axios"

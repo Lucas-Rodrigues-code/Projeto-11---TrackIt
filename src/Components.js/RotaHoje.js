@@ -2,7 +2,12 @@ import Logo2 from "./LogoMenu/Logo2"
 import styled from "styled-components"
 import { BsCheckSquare } from 'react-icons/bs';
 
+import { useContext } from "react";
+import { Context } from "../contexts/Context";
+
 export default function RotaHoje() {
+    const {login} = useContext(Context)
+    console.log(login)
     return (
         <>
             <Logo2 />

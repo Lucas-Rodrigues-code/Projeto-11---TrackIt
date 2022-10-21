@@ -1,11 +1,15 @@
 import styled from "styled-components"
-import user from "/home/lucas/projetos/projeto11-trackit/src/Components.js/LogoMenu/logo2.jpg"
 
+import { useContext } from "react";
+import { Context } from "/home/lucas/projetos/projeto11-trackit/src/contexts/Context.js"
 export default function Logo2() {
+    const {login} = useContext(Context)
+    
+    
     return (
         <Logo>
             <h1>TrackIt</h1>
-            <img src={user} alt="iamgem-logo" /> 
+            <img src= "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2maq3DDekh0K8fMA0uBvroLWOQ9RuipuSpF-NvanEgg&s" alt="imagem"/> 
         </Logo>
     )
 }
